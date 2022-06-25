@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="./script.js"></script>
     <title>Colour Flipper</title>
 </head>
 <body>
     <div class="flex-container flex-centre">
-        <div class="flex-container">
+        <div class="content-container flex-centre-horizontal">
             <div class="head">
-                <p>Select a colour and click the button or the Enter key to change the background colour.</p>
+                <p>Background Colour Flipper</p>
             </div>
-            <div class="body" class="flex-centre-horizontal">
-                <div id="colour-pallet" class="flex-container">
+            <div class="body flex-centre-horizontal">
+                <div id="colour-pallet">
                     <!-- This is where JavaScript will inject the colour pallet -->
                 </div>
-                <button>Apply</button>
+                <button id="apply-btn">Apply</button>
             </div>
         </div>
     </div>
