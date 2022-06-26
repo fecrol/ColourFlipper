@@ -12,8 +12,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class IndexTests {
 
-    WebDriver driver;
-    String baseUrl = "https://fecrol.github.io/ColourFlipper/";
+    private WebDriver driver;
+    private String baseUrl = "https://fecrol.github.io/ColourFlipper/";
 
     @BeforeEach
     public void setUp() {
