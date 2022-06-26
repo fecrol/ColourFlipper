@@ -6,13 +6,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import pompages.IndexPOM;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class IndexTests {
 
     private WebDriver driver;
+    private IndexPOM indexPage;
     private String baseUrl = "https://fecrol.github.io/ColourFlipper/";
 
     @BeforeEach
@@ -43,6 +49,8 @@ public class IndexTests {
                 break;
         }
 
+        indexPage = new IndexPOM(driver);
+
         driver.manage().window().maximize();
         driver.get(baseUrl);
     }
@@ -55,12 +63,37 @@ public class IndexTests {
 
     @Test
     @DisplayName("Is able to apply background colour using apply button")
-    public void applyBackgroundWithBtn() {
+    public void applyBackgroundColourWithBtn() {
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        WebElement colourSelector = indexPage.findElementByColour("red");
+        indexPage.selectElement(colourSelector);
+
+        boolean elementIsSelected = indexPage.elementIsSelected(colourSelector);
+        assertThat("Element was not selected", elementIsSelected, is(true));
+
+        indexPage.clickApplyBtn();
+
+        String selectedElementBgColour = indexPage.getElementBgColour(colourSelector);
+        String bodyBgColour = indexPage.getBodyBgColour();
+
+        assertThat("Colours do not match", bodyBgColour.equals(selectedElementBgColour));
+    }
+
+    @Test
+    @DisplayName("Is able to apply background colour using the Enter key")
+    public void applyBackgroundColourWithEnterKey() {
+
+        WebElement colourSelector = indexPage.findElementByColour("pink");
+        indexPage.selectElement(colourSelector);
+
+        boolean elementIsSelected = indexPage.elementIsSelected(colourSelector);
+        assertThat("Element was not selected", elementIsSelected, is(true));
+
+        indexPage.applyBgColourWithEnterKey();
+
+        String selectedElementBgColour = indexPage.getElementBgColour(colourSelector);
+        String bodyBgColour = indexPage.getBodyBgColour();
+
+        assertThat("Colours do not match", bodyBgColour.equals(selectedElementBgColour));
     }
 }
